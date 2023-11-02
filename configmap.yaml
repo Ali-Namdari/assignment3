@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: assign2-config
+  namespace: anamdari
+data:
+  config_value: snake
+  env_Value: environmentSnake

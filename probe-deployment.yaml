@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: assign3-probe
+  namespace: probe
+  labels:
+    app: assign3-probe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assign3-probe
+  template:
+    metadata:
+      labels:
+        app: assign3-probe
+    spec:
+      containers:
+      - name: assign3-probe
+        image: anamdari/assign3
+        ports:
+        - containerPort: 8080

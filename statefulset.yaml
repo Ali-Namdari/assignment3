@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: assign3
+  namespace: anamdari
+  labels:
+    app: assign3
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: assign3
+  template:
+    metadata:
+      labels:
+        app: assign3
+    spec:
+      containers:
+      - name: assign3
+        image: anamdari/assign3
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+        readinessProbe:
+            exec:
+                command:
+                - curl
+                - http://assign3-probe.probe.svc:30000/isAlive
+        volumeMounts:
+        - name: assign3-persistent-storage
+          mountPath: /mnt
+      volumes:
+      - name: assign3-persistent-storage
+        persistentVolumeClaim:
+            claimName: mypv-claim
